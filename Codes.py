@@ -2,13 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file
-df = pd.read_csv('C:/Users/User/Desktop/Github/AI_Detect_Failure/Dataset/pump_sensor_data.csv')
+data = pd.read_csv('C:/Users/User/Desktop/Github/AI_Detect_Failure/Dataset/pump_sensor_data.csv')
 
 # Convert timestamp to datetime
-df['timestamp'] = pd.to_datetime(df['timestamp'])
+data['timestamp'] = pd.to_datetime(data['timestamp'])
 
 # Group by pump_id and calculate failure rate
-failure_rates = df.groupby('pump_id')['failure'].mean().sort_values(ascending=False)
+failure_rates = data.groupby('pump_id')['failure'].mean().sort_values(ascending=False)
 
 print("Failure rates by pump:")
 print(failure_rates)
@@ -29,7 +29,7 @@ print(f"\
 Most problematic pump: {problematic_pump}")
 
 # Analyze sensor readings for the problematic pump
-problematic_pump_data = df[df['pump_id'] == problematic_pump]
+problematic_pump_data = data[data['pump_id'] == problematic_pump]
 
 # Plot sensor readings for the problematic pump
 fig, axs = plt.subplots(3, 2, figsize=(15, 15))
