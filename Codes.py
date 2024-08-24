@@ -25,8 +25,7 @@ plt.show()
 # Identify the pump with the highest failure rate
 problematic_pump = failure_rates.index[0]
 
-print(f"\
-Most problematic pump: {problematic_pump}")
+print(f"\Most problematic pump: {problematic_pump}")
 
 # Analyze sensor readings for the problematic pump
 problematic_pump_data = data[data['pump_id'] == problematic_pump]
