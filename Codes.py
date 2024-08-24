@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-data = pd.read_csv("C:/Users/User/Desktop/Github/AI_Detect_Failure/Dataset/pump_sensor_data.csv")
+data = pd.read_csv("AI_Detect_Failure/Dataset/pump_sensor_data.csv")
 data['timestamp'] = pd.to_datetime(data['timestamp'])
 fr = data.groupby('pump_id')['failure'].mean().sort_values(ascending=False)
 print("Failure rates by pump:")
