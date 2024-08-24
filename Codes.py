@@ -1,29 +1,37 @@
-import pandas as kl
+import pandas as pd
 import matplotlib.pyplot as plt
 
-data = kl.read_csv("C:/Users/User/Desktop/Github/AI_Detect_Failure/Dataset/pump_sensor_data.csv")
-data['timestamp'] = kl.to_datetime(data['timestamp'])
-fr = data.groupby('pump_id')['failure'].mean().sort_values(ascending=False)
-print("Failure rates by pump:")
-print(fr)
+# Read the CSV file
+df = pd.read_csv('C:/Users/User/Desktop/Github/AI_Detect_Failure/Dataset/pump_sensor_data.csv')
 
-#Plot Bar Chart from highest failure to the lowest
+# Convert timestamp to datetime
+df['timestamp'] = pd.to_datetime(df['timestamp'])
+
+# Group by pump_id and calculate failure rate
+failure_rates = df.groupby('pump_id')['failure'].mean().sort_values(ascending=False)
+
+print("Failure rates by pump:")
+print(failure_rates)
+
+# Plot failure rates
 plt.figure(figsize=(12, 6))
-fr.plot(kind='bar')
+failure_rates.plot(kind='bar')
 plt.title('Failure Rates by Pump')
 plt.xlabel('Pump ID')
 plt.ylabel('Failure Rate')
 plt.tight_layout()
 plt.show()
 
-#Show Result
-problematic_pump = fr.index[0]
+# Identify the pump with the highest failure rate
+problematic_pump = failure_rates.index[0]
 
-print(f"\Most problematic pump: {problematic_pump}")
+print(f"\
+Most problematic pump: {problematic_pump}")
 
-#Plot sensor reading from the problematic pump
-problematic_pump_data = data[data['pump_id'] == problematic_pump]
+# Analyze sensor readings for the problematic pump
+problematic_pump_data = df[df['pump_id'] == problematic_pump]
 
+# Plot sensor readings for the problematic pump
 fig, axs = plt.subplots(3, 2, figsize=(15, 15))
 fig.suptitle(f'Sensor Readings for Pump {problematic_pump}')
 
@@ -54,5 +62,4 @@ axs[2, 1].set_xlabel('Timestamp')
 plt.tight_layout()
 plt.show()
 
-#Done Analysing
 print("Analysis complete.")
